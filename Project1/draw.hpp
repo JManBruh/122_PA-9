@@ -7,6 +7,7 @@
 
 using namespace sf;
 using std::vector;
+using std::string;
 
 class batch {
 public:
@@ -16,7 +17,7 @@ public:
 	void setRot(Angle in, int num);
 	void draw(RenderWindow& window);
 
-private:
+protected:
 	int arraySize;
 	vector<Texture> textures;
 	vector<Vector2f> positions;
