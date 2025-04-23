@@ -23,5 +23,8 @@
     <ClInclude Include="draw.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="levels.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

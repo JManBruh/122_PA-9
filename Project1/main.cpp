@@ -1,30 +1,34 @@
-#include <SFML/Graphics.hpp>
+/*#include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/OpenGL.hpp>
-#include <vector>
+#include <vector> */
+#include "draw.hpp"
 
 using namespace sf;
 using std::vector;
 
+
+
 int main()
 {
-	Texture guy(Image("img/fisherman.png"), false);
-	Sprite sprguy(guy);
-	sprguy.setOrigin({ -300.f, -300.f });
-	sprguy.setRotation(degrees(0));
-	sprguy.setScale({ 1.f, 1.f });
-	Vector2f debug = sprguy.getPosition();
+	Music destroy("mp3/Destroy.mp3");
+	batch load;
 
+	load.add("img/mtrainierbg.png", 0);
+	load.add("img/grass.png", 1);
+	load.add("img/fisherman.png", 2);
+	load.setOrg({ 0, 0 }, 0);
+	load.setOrg({ 0,-800 }, 1);
+	load.setOrg({ 0, -400 }, 2);
+	destroy.play();
+	float x = 0.0;
+	//main game loop
 	RenderWindow window(VideoMode({ 1600, 900 }), "GET FISH");
-	while (window.isOpen())
+	while(window.isOpen()) 
 	{
-		while (const std::optional event = window.pollEvent())
-		{
-			if (event->is<Event::Closed>())
-				window.close();
-		}
-		window.clear();
-		window.draw(sprguy);
-		window.display();
+		load.draw(window);
+		load.setPos({ x, 0 }, 2);
+		x += 0.1;
 	}
+
 }
