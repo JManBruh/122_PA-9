@@ -14,9 +14,11 @@ int main()
 	Music destroy("mp3/Destroy.mp3");
 	batch load;
 
-	load.add("img/mtrainierbg.png", 0);
-	load.add("img/grass.png", 1);
-	load.add("img/fisherman.png", 2);
+	IntRect asize({ 0, 0 }, { 512, 512 }), bsize({ 0, 0 }, { 1200, 675 });
+
+	load.add("img/mtrainierbg.png", bsize, 0);
+	load.add("img/grass.png", asize, 1);
+	load.add("img/fisherman.png", asize, 2);
 	load.setOrg({ 0, 0 }, 0);
 	load.setOrg({ 0,-800 }, 1);
 	load.setOrg({ 0, -400 }, 2);
