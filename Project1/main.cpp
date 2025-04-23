@@ -8,13 +8,14 @@ using std::vector;
 
 int main()
 {
-	Texture guy("img/fisherman.png", false, IntRect({ 10, 10 }, { 16, 16 }));
+	Texture guy(Image("img/fisherman.png"), false);
 	Sprite sprguy(guy);
-	sprguy.setPosition({10.f, 50.f});
-	sprguy.setRotation(sf::degrees(90));
-	sprguy.setScale({ 0.5f, 2.f });
+	sprguy.setOrigin({ -300.f, -300.f });
+	sprguy.setRotation(degrees(0));
+	sprguy.setScale({ 1.f, 1.f });
+	Vector2f debug = sprguy.getPosition();
 
-	RenderWindow window(sf::VideoMode({ 1600, 900 }), "PA 9: FISHING");
+	RenderWindow window(VideoMode({ 1600, 900 }), "GET FISH");
 	while (window.isOpen())
 	{
 		while (const std::optional event = window.pollEvent())
@@ -26,5 +27,4 @@ int main()
 		window.draw(sprguy);
 		window.display();
 	}
-
 }
