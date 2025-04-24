@@ -35,6 +35,10 @@ void tilemap::addTilemap(const char* in, int num)
 
 void tilemap::setMultiPos(vector<Vector2f> in, int num) 
 {
+	if(in.size() > tilePositions[num].size())
+	{ 
+		tilePositions[num].resize(in.size() + 1);
+	}
 	for(int i = 0; i < in.size(); i++) 
 	{
 		tilePositions[num][i] = in[i];
@@ -64,7 +68,7 @@ void tilemap::drawTilemap(RenderWindow& window)
 
 void game() 
 {
-	Music destroy("mp3/Destroy.mp3");
+	Music destroy("mp3/Fish Game.wav");
 	batch load;
 	tilemap map;
 
@@ -88,7 +92,6 @@ void game()
 	while (window.isOpen())
 	{
 		load.draw(window);
-		map.drawTilemap(window);
 		load.setPos({ x, 0 }, 2);
 		x += 0.1;
 	}
