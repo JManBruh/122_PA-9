@@ -1,10 +1,7 @@
-/*#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/OpenGL.hpp>
-#include <vector> */
-#include "tilemap.hpp"
+#include "game.hpp"
 
 int main()
 {
 	game();
+	return 0;
 }
