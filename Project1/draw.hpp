@@ -14,6 +14,7 @@ public:
 	void add(const char* in, IntRect size, int num);
 	void setOrg(Vector2f in, int num);
 	void setPos(Vector2f in, int num);
+	void setScl(Vector2f in, int num);
 	void setRot(Angle in, int num);
 	void draw(RenderWindow& window);
 
@@ -60,6 +61,11 @@ void batch::setRot(Angle in, int num)
 	angles[num] = in;
 }
 
+void batch::setScl(Vector2f in, int num) 
+{
+	scales[num] = in;
+}
+
 void batch::draw(RenderWindow& window) 
 {
 	while (const std::optional event = window.pollEvent())
@@ -74,6 +80,7 @@ void batch::draw(RenderWindow& window)
 		sprite.setTextureRect(sizes[i]);
 		sprite.setTexture(textures[i]);
 		sprite.setOrigin(origins[i]);
+		sprite.setScale(scales[i]);
 		sprite.setPosition(positions[i]);
 		sprite.setRotation(angles[i]);
 		window.draw(sprite);
