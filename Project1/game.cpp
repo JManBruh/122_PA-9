@@ -81,7 +81,7 @@ vector<Vector2f> mapGen(vector<Vector2f> array, float scaleFactor, int tileSize)
 	//each int is how many blocks it generates of that level
 	int floor = 500;
 	int platform1 = 10;
-	int hillwidth = 20;
+	int hillwidth = 19;
 	int hillheight = 10;
 	//makes the code nicer to read
 	int aggregate = 0;
@@ -90,6 +90,7 @@ vector<Vector2f> mapGen(vector<Vector2f> array, float scaleFactor, int tileSize)
 	array.resize(floor);
 	for(int i = 0; i < floor; i++) 
 	{
+
 		array[i] = { -scaleFactor * tileSize * i,scaleFactor * tileSize * -14 };
 	}
 	aggregate += floor;
@@ -99,14 +100,19 @@ vector<Vector2f> mapGen(vector<Vector2f> array, float scaleFactor, int tileSize)
 		array[aggregate + i] = { -scaleFactor * tileSize * i,scaleFactor * tileSize *  -5 };
 	}
 	aggregate += platform1;
-	array.resize(aggregate + hillwidth - 1);
+	array.resize(aggregate + hillwidth);
+	
 	for (int i = 0; i < hillwidth; i++)
 	{
-		if(i < hillheight) 
+		if(i <= hillheight) 
 		{
 			array[aggregate + i] = { -scaleFactor * tileSize * i * 15,-10 * scaleFactor * tileSize * i };
+		} else 
+		{
+			array[aggregate + i] = { -scaleFactor * tileSize * i * 1,1 * scaleFactor * tileSize * i };
 		}
 	}
+	
 	return array;
 }
 
