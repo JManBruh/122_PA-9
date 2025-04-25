@@ -39,11 +39,6 @@ void batch::setScl(Vector2f in, int num)
 
 void batch::draw(RenderWindow& window)
 {
-	while (const std::optional event = window.pollEvent())
-	{
-		if (event->is<Event::Closed>())
-			window.close();
-	}
 	Sprite sprite(textures[0]);
 	window.clear();
 	for (int i = 0; i < arraySize; i++)

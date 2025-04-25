@@ -1,54 +1,48 @@
 #include "tilemap.hpp"
 
-void tilemap::addTilemap(const char* in, int num)
+tilemap::tilemap() 
 {
-	if (num >= tiletexts.size())
-	{
-		tiletexts.resize(num + 1);
-		int i = 0;
-		if (tilePositions.size() == 0)
-		{
-			tilePositions.resize(1);
-		}
-		for (; i < tilePositions.size(); i++)
-		{
-			tilePositions[i].resize(num + 1);
-		}
-		tilePositions.resize(i + 1);
-	}
-	Texture texture(Image(in), false);
-	tiletexts[num] = texture;
+	tilePositions.resize(1);
+	tilePositions[0].resize(1);
+	tilePositions[0][0] = {0,0};
+
+
 }
 
 void tilemap::setMultiPos(vector<Vector2f> in, int num)
 {
-	if (in.size() > tilePositions[num].size())
-	{
-		tilePositions[num].resize(in.size() + 1);
-	}
+	tilePositions.resize(num + 1);
 	for (int i = 0; i < in.size(); i++)
 	{
-		tilePositions[num][i] = in[i];
+		tilePositions[num].push_back(in[i]);
 	}
 }
 
 void tilemap::drawTilemap(RenderWindow& window)
 {
-	while (const std::optional event = window.pollEvent())
-	{
-		if (event->is<Event::Closed>())
-			window.close();
-	}
-	Sprite sprite(tiletexts[0]);
+	Vector2f unint;
+	//there was simply no other way
+	Sprite sprite(textures[0]);
 	window.clear();
-	for (int x = 0; x < tilePositions.size(); x++)
+	for (int i = 0; i < arraySize; i++)
 	{
-		for (int y = 0; y < tilePositions[x].size(); y++)
+		sprite.setTextureRect(sizes[i]);
+		sprite.setTexture(textures[i]);
+		sprite.setOrigin(origins[i]);
+		sprite.setScale(scales[i]);
+		sprite.setRotation(angles[i]);
+		sprite.setPosition(positions[i]);
+		if (tilePositions.size() > i && tilePositions[i][0] != unint)
 		{
-			sprite.setPosition(tilePositions[x][y]);
+			for (int y = 0; y < tilePositions[i].size(); y++)
+			{
+				sprite.setOrigin(tilePositions[i][y]);
+				window.draw(sprite);
+			}
+		} else 
+		{
 			window.draw(sprite);
 		}
-		sprite.setTexture(tiletexts[x]);
 	}
 	window.display();
 }
