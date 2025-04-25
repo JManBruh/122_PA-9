@@ -32,7 +32,11 @@ void game()
 	//SFML is annoying
 	const float tileScaleConst = 0.1;
 	float scaleFactor = 1 / tileScaleConst;
+	//more variables
 	float bgScale = 4.0 / 3.0;
+	int framerate = 60;
+	//w/h of each tile, makes math convenient
+	int tileSize = 51;
 	//sets properties of each sprite, selected by index. The {} is because Origin requires a Vector2f, so it contains X and Y values.
 	map.setOrg({ 0, 0 }, 0);
 	map.setOrg({ scaleFactor*0, scaleFactor*-400 }, 2);
@@ -42,10 +46,9 @@ void game()
 	map.setScl({ tileScaleConst,tileScaleConst }, 2);
 
 	//multiple positions for anyting you want to tile
-	vector<Vector2f> mapPos = { {scaleFactor*0,scaleFactor * -100}, {scaleFactor * 0, scaleFactor * 0}, {scaleFactor * -800,scaleFactor * -899} };
-
-	//not working yet
-	map.setMultiPos(mapPos, 1);
+	vector<Vector2f> mapPos;
+	//heheheha
+	map.setMultiPos(mapGen(mapPos, scaleFactor, tileSize), 1);
 
 	//start music. this has to be out of the draw loop
 	main.play();
@@ -53,6 +56,7 @@ void game()
 	float x = 0.0;
 	//opens window (tried to put this inside the batch class, but it didn't work)
 	RenderWindow window(VideoMode({ 1600, 900 }), "GET FISH");
+	window.setFramerateLimit(framerate);
 	while (window.isOpen())
 	{
 		//controlling the window
@@ -71,3 +75,28 @@ void game()
 		x += 0.1;
 	}
 }
+
+vector<Vector2f> mapGen(vector<Vector2f> array, float scaleFactor, int tileSize) 
+{
+	//each int is how many blocks it generates of that level
+	int floor = 500;
+	int platform1 = 10;
+	array.resize(floor + platform1);
+
+
+	for(int i = 0; i < floor; i++) 
+	{
+		array[i] = { -scaleFactor * tileSize * i,scaleFactor * -700 };
+
+
+	}
+	
+	for(int i = 0; i < platform1; i++) 
+	{
+		array[floor + i] = { -scaleFactor * tileSize * i,scaleFactor * -200 };
+	}
+	
+
+	return array;
+}
+
