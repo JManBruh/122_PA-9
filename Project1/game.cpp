@@ -39,14 +39,14 @@ void game()
 	int tileSize = 51;
 	//sets properties of each sprite, selected by index. The {} is because Origin requires a Vector2f, so it contains X and Y values.
 	map.setOrg({ 0, 0 }, 0);
-	map.setOrg({ scaleFactor*0, scaleFactor*-400 }, 2);
+	map.setOrg({ scaleFactor*0, scaleFactor*-650 }, 2);
 	//Implemented scaling!
 	map.setScl({ bgScale,bgScale}, 0);
 	map.setScl({ tileScaleConst, tileScaleConst }, 1);
 	map.setScl({ tileScaleConst,tileScaleConst }, 2);
 
 	//multiple positions for anyting you want to tile
-	vector<Vector2f> mapPos;
+	vector<Vector2f> mapPos = {};
 	//heheheha
 	map.setMultiPos(mapGen(mapPos, scaleFactor, tileSize), 1);
 
@@ -81,38 +81,35 @@ vector<Vector2f> mapGen(vector<Vector2f> array, float scaleFactor, int tileSize)
 	//each int is how many blocks it generates of that level
 	int floor = 500;
 	int platform1 = 10;
-	int hillwidth = 19;
-	int hillheight = 10;
+	int hillwidth = 10;
+	int hillheight = 5;
 	//makes the code nicer to read
 	int aggregate = 0;
-
+	float spacing = -scaleFactor * (float)tileSize;
 
 	array.resize(floor);
 	for(int i = 0; i < floor; i++) 
 	{
-
-		array[i] = { -scaleFactor * tileSize * i,scaleFactor * tileSize * -14 };
+		array[i] = { spacing * i, spacing * 14 };
 	}
 	aggregate += floor;
 	array.resize(aggregate + platform1);
 	for(int i = 0; i < platform1; i++) 
 	{
-		array[aggregate + i] = { -scaleFactor * tileSize * i,scaleFactor * tileSize *  -5 };
+		array[aggregate + i] = {spacing * i, spacing * 8 };
 	}
 	aggregate += platform1;
 	array.resize(aggregate + hillwidth);
-	
+
 	for (int i = 0; i < hillwidth; i++)
 	{
-		if(i <= hillheight) 
+		if (i < hillheight) 
 		{
-			array[aggregate + i] = { -scaleFactor * tileSize * i * 15,-10 * scaleFactor * tileSize * i };
+			array[aggregate + i] = { spacing * i + (spacing * 10), -spacing * i + (spacing * 14)};
 		} else 
 		{
-			array[aggregate + i] = { -scaleFactor * tileSize * i * 1,1 * scaleFactor * tileSize * i };
+			array[aggregate + i] = { spacing * i + (spacing * 12), spacing * i + (spacing * 5) };
 		}
 	}
-	
 	return array;
 }
-
