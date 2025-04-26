@@ -154,6 +154,9 @@
     <ClInclude Include="game.hpp" />
     <ClInclude Include="tilemap.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\song ID.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

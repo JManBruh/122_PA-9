@@ -32,6 +32,8 @@ void game()
 	int framerate = 60;
 	//w/h of each tile, makes math convenient
 	int tileSize = 51;
+	//tying it together
+	float spacing = -scaleFactor * (float)tileSize;
 
 	//add takes a string of where the image file is, its size, and a custom index (used so you can refer to it later) and adds to the batch
 	map.add("img/mtrainierbg.png", bsize, 0);
@@ -50,7 +52,7 @@ void game()
 	//multiple positions for anyting you want to tile
 	vector<Vector2f> mapPos = {};
 	//heheheha
-	map.setMultiPos(mapGen(mapPos, scaleFactor, tileSize), 1);
+	map.setMultiPos(mapGen(mapPos, spacing), 1);
 
 	//start music. this has to be out of the draw loop
 	main.play();
@@ -78,7 +80,7 @@ void game()
 	}
 }
 
-vector<Vector2f> mapGen(vector<Vector2f> array, float scaleFactor, int tileSize) 
+vector<Vector2f> mapGen(vector<Vector2f> array, float spacing) 
 {
 	//each int is how many blocks it generates of that level
 	int floor = 500;
@@ -87,7 +89,6 @@ vector<Vector2f> mapGen(vector<Vector2f> array, float scaleFactor, int tileSize)
 	int hillheight = 5;
 	//makes the code nicer to read
 	int aggregate = 0;
-	float spacing = -scaleFactor * (float)tileSize;
 
 	array.resize(floor);
 	for(int i = 0; i < floor; i++) 
