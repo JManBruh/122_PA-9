@@ -1,21 +1,18 @@
-#include "draw.hpp"
+#include "tilemap.hpp"
 
 class Character {
 public:
 	//initialize sprite and physics values
-	void init(const char* texturePath, IntRect frame, Vector2f startPos);
+	Character(const char* texturePath, IntRect frame, Vector2f startPos, tilemap *batch, int IDin);
 
 	//handle input and physics
-	void update();
-
-	//render using internal batch
-	void draw(RenderWindow& window);
+	void update(tilemap *batch);
 
 	//get current position (for collisions or camera use)
 	Vector2f getPosition() const;
 
 private:
-	batch charBatch;
+	int PlayerID;
 	Vector2f velocity;
 	Vector2f position;
 	bool isJumping = false;

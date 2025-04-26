@@ -1,18 +1,19 @@
 #include "character.hpp"
 
-inline void Character::init(const char* texturePath, sf::IntRect frame, sf::Vector2f startPos)
+Character::Character(const char* texturePath, IntRect frame, Vector2f startPos, tilemap *batch, int IDin)
 {
-	charBatch.add(texturePath, frame, 0);
+	PlayerID = IDin;
+	batch->add(texturePath, frame, PlayerID);
 
 	//center origin for 512x512 sprite
-	charBatch.setOrg({ 256.f, 256.f }, 0);
+	batch->setOrg({ 256.f, 256.f }, PlayerID);
 
-	charBatch.setPos(startPos, 0);
+	batch->setPos(startPos, PlayerID);
 	position = startPos;
 	velocity = { 0.f, 0.f };
 }
 
-void Character::update()
+void Character::update(tilemap *batch)
 {
 	if (!isJumping && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
 		velocity.y = jumpStrength;
@@ -31,12 +32,7 @@ void Character::update()
 	}
 
 	//update position in batch
-	charBatch.setPos(position, 0);
-}
-
-void Character::draw(RenderWindow& window)
-{
-	charBatch.draw(window);
+	batch->setPos(position, PlayerID);
 }
 
 Vector2f Character::getPosition() const

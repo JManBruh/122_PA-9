@@ -1,4 +1,4 @@
-#include "tilemap.hpp"
+#include "character.hpp"
 
 //runs what used to be in main
 void game();

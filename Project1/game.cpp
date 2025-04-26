@@ -24,11 +24,6 @@ void game()
 	//Optimization for the batch-drawer. For any sprite you want to add, look at its x/y dimensions, then add them here.
 	IntRect asize({ 0, 0 }, { 512, 512 }), bsize({ 0, 0 }, { 1200, 675 });
 
-	//add takes a string of where the image file is, its size, and a custom index (used so you can refer to it later) and adds to the batch
-	map.add("img/mtrainierbg.png", bsize, 0);
-	map.add("img/grass.png", asize, 1);
-	map.add("img/fisherman.png", asize, 2);
-
 	//SFML is annoying
 	const float tileScaleConst = 0.1;
 	float scaleFactor = 1 / tileScaleConst;
@@ -37,6 +32,13 @@ void game()
 	int framerate = 60;
 	//w/h of each tile, makes math convenient
 	int tileSize = 51;
+
+	//add takes a string of where the image file is, its size, and a custom index (used so you can refer to it later) and adds to the batch
+	map.add("img/mtrainierbg.png", bsize, 0);
+	map.add("img/grass.png", asize, 1);
+	//utilizing the player class!
+	Character guy("img/fisherman.png", asize, { scaleFactor * 0, scaleFactor * -650 }, &map, 2);
+
 	//sets properties of each sprite, selected by index. The {} is because Origin requires a Vector2f, so it contains X and Y values.
 	map.setOrg({ 0, 0 }, 0);
 	map.setOrg({ scaleFactor*0, scaleFactor*-650 }, 2);
@@ -69,8 +71,8 @@ void game()
 
 		//One command for drawing everything in the batch!
 		map.drawTilemap(window);
-		//Doing this in here updates the sprite's position every frame, making it move.
-		map.setPos({ x, 0 }, 2);
+		//Physics! Hopefully!
+		guy.update(&map);
 		//update the sprite's position every frame
 		x += 0.1;
 	}
